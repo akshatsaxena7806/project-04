@@ -130,6 +130,8 @@ public class UserRegistrationCtl extends BaseCtl {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		System.out.println("hello");
+		
 		String op = DataUtility.getString(request.getParameter("operation"));
 
 		UserModel model = new UserModel();

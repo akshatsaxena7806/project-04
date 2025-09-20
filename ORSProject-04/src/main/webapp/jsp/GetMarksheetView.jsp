@@ -209,6 +209,8 @@
                 }
             %>
         </form>
+        		<%@ include file="Footer.jsp" %>
+        	
     </div>
 </body>
 </html>

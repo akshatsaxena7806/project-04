@@ -89,7 +89,7 @@ public class LoginCtl extends BaseCtl {
 
 		HttpSession session = request.getSession();
 
-		String op = DataUtility.getString(request.getParameter("operation"));
+		String op = DataUtility.getString(	request.getParameter("operation"));
 
 		UserModel model = new UserModel();
 		RoleModel role = new RoleModel();

@@ -134,5 +134,7 @@
             </table>
         </div>
     </form>
+    				<%@ include file="Footer.jsp" %>
+    
 </body>
 </html>

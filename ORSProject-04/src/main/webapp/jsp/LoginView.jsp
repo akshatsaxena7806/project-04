@@ -34,14 +34,14 @@
 
 			<table>
 				<tr>
-					<th align="left">Login Id<span style="color: red">*</span></th>
+					<th align="left">Login Id<span style="color: brown">*</span></th>
 					<td align="center"><input type="text" name="login"
 						placeholder="Enter Email Id"
 						value="<%=DataUtility.getStringData(bean.getLogin())%>"></td>
 					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("login", request)%></font></td>
 				</tr>
 				<tr>
-					<th align="left">Password<span style="color: red">*</span></th>
+					<th align="left">Password<span style="color: brown"">*</span></th>
 					<td align="center"><input type="password" name="password"
 						placeholder="Enter Password"
 						value="<%=DataUtility.getStringData(bean.getPassword())%>"></td>
@@ -70,6 +70,8 @@
 				</tr>
 			</table>
 		</div>
+		
 	</form>
+	<%@ include file="Footer.jsp" %>
 </body>
 </html>

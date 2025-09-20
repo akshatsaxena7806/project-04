@@ -32,7 +32,7 @@
 			</div>
 
 			<input type="hidden" name="id" value="<%=bean.getId()%>"> <input
-				type="hidden" name="createdBy" value="<%=bean.getCreatedBy()%>">
+				type="hidden" name= "createdBy" value="<%=bean.getCreatedBy()%>">
 			<input type="hidden" name="modifiedBy"
 				value="<%=bean.getModifiedBy()%>"> <input type="hidden"
 				name="createdDatetime"
@@ -90,7 +90,7 @@
 						<%
 							HashMap<String, String> map = new HashMap<String, String>();
 							map.put("Female", "Female");
-							map.put("Male", "Male");
+							map.put("make", "value");
 
 							String htmlList = HTMLUtility.getList("gender", bean.getGender(), map);
 						%> <%=htmlList%>
@@ -119,5 +119,6 @@
 			</table>
 		</div>
 	</form>
+	<%@ include file="Footer.jsp" %>
 </body>
 </html>
