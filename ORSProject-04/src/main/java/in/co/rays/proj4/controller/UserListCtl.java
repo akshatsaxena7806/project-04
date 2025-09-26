@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.proj4.bean.BaseBean;
+import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.bean.UserBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.model.RoleModel;
@@ -22,24 +23,21 @@ public class UserListCtl extends BaseCtl {
 
 	@Override
 	protected void preload(HttpServletRequest request) {
-
 		RoleModel model = new RoleModel();
-
 		try {
-
-			List rolelist = model.list();
-			request.setAttribute("roleList", rolelist);
-             
-		} catch (Exception e) {
+			List<RoleBean> roleList = model.list();
+			request.setAttribute("roleList", roleList);
+		} catch (ApplicationException e) {
+			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
+		// TODO Auto-generated method stub
 
 		UserBean bean = new UserBean();
-
 		bean.setFirstName(DataUtility.getString(request.getParameter("firstName")));
 		bean.setLogin(DataUtility.getString(request.getParameter("login")));
 		bean.setRoleId(DataUtility.getLong(request.getParameter("roleId")));
@@ -49,13 +47,12 @@ public class UserListCtl extends BaseCtl {
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		int pageNo = 1;
 		int pageSize = DataUtility.getInt(PropertyReader.getValue("page.size"));
 
-		UserBean bean = (UserBean) populateBean(request);
+		UserBean bean = (UserBean) populateBean(req);
 		UserModel model = new UserModel();
 
 		try {
@@ -63,81 +60,76 @@ public class UserListCtl extends BaseCtl {
 			List<UserBean> next = model.search(bean, pageNo + 1, pageSize);
 
 			if (list == null || list.isEmpty()) {
-				ServletUtility.setErrorMessage("No record found", request);
-
+				ServletUtility.setErrorMessage("No record found..", req);
 			}
+			ServletUtility.setList(list, req);
+			ServletUtility.setPageNo(pageNo, req);
+			ServletUtility.setPageSize(pageSize, req);
+			ServletUtility.setBean(bean, req);
+			req.setAttribute("nextListSize", next.size());
 
-			ServletUtility.setList(list, request);
-			ServletUtility.setPageNo(pageNo, request);
-			ServletUtility.setPageSize(pageSize, request);
-			ServletUtility.setBean(bean, request);
-			request.setAttribute("nextListSize", next.size());
-
-			ServletUtility.forward(getView(), request, response);
+			
 
 		} catch (ApplicationException e) {
-
+			// TODO: handle exception
 			e.printStackTrace();
-			ServletUtility.handleException(e, request, response);
+			ServletUtility.handleException(e, req, resp);
 			return;
 		}
-
+		// TODO Auto-generated method stub
+		ServletUtility.forward(getView(), req, resp);
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		System.out.println("hey");
 
 		List list = null;
 		List next = null;
-
-		int pageNo = DataUtility.getInt(request.getParameter("pageNo"));
-		int pageSize = DataUtility.getInt(request.getParameter("pageSize"));
-
+		
+		String op    = DataUtility.getString(req.getParameter("operation"));
+		int pageNo   = DataUtility.getInt(req.getParameter("pageNo"));
+		int pageSize = DataUtility.getInt(req.getParameter("pageSize"));
+		String[] ids = req.getParameterValues("ids");
+		
 		pageNo = (pageNo == 0) ? 1 : pageNo;
 		pageSize = (pageSize == 0) ? DataUtility.getInt(PropertyReader.getValue("page.size")) : pageSize;
 
-		UserBean bean = (UserBean) populateBean(request);
+		UserBean bean = (UserBean) populateBean(req);
 		UserModel model = new UserModel();
 
-		String op = DataUtility.getString(request.getParameter("operation"));
-		String[] ids = request.getParameterValues("ids");
-
 		try {
-
-			if (OP_SEARCH.equalsIgnoreCase(op) || "Next".equalsIgnoreCase(op) || "Previous".equalsIgnoreCase(op)) {
+			if (OP_SEARCH.equalsIgnoreCase(op) || OP_NEXT.equalsIgnoreCase(op) || OP_PREVIOUS.equalsIgnoreCase(op)) {
 
 				if (OP_SEARCH.equalsIgnoreCase(op)) {
 					pageNo = 1;
 				} else if (OP_NEXT.equalsIgnoreCase(op)) {
 					pageNo++;
-				} else if (OP_PREVIOUS.equalsIgnoreCase(op) && pageNo > 1) {
+				} else if (OP_PREVIOUS.equalsIgnoreCase(op)) {
 					pageNo--;
 				}
-
 			} else if (OP_NEW.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.USER_CTL, request, response);
+				ServletUtility.redirect(ORSView.USER_CTL, req, resp);
 				return;
-
 			} else if (OP_DELETE.equalsIgnoreCase(op)) {
 				pageNo = 1;
 				if (ids != null && ids.length > 0) {
 					UserBean deletebean = new UserBean();
 					for (String id : ids) {
 						deletebean.setId(DataUtility.getInt(id));
-						model.delete(deletebean);
-						ServletUtility.setSuccessMessage("User deleted successfully", request);
+						model.delete(deletebean.getId());
+						ServletUtility.setSuccessMessage("User deleted successfully", req);
 					}
 				} else {
-					ServletUtility.setErrorMessage("Select at least one record", request);
+					ServletUtility.setErrorMessage("select atleast 1 data..", req);
 				}
 
 			} else if (OP_RESET.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.USER_LIST_CTL, request, response);
+				ServletUtility.redirect(ORSView.USER_LIST_CTL, req, resp);
 				return;
-
 			} else if (OP_BACK.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.USER_LIST_CTL, request, response);
+				ServletUtility.redirect(ORSView.USER_LIST_CTL, req, resp);
 				return;
 			}
 
@@ -145,22 +137,26 @@ public class UserListCtl extends BaseCtl {
 			next = model.search(bean, pageNo + 1, pageSize);
 
 			if (list == null || list.size() == 0) {
-				ServletUtility.setErrorMessage("No record found ", request);
+				ServletUtility.setErrorMessage("No record found ", req);
 			}
 
-			ServletUtility.setList(list, request);
-			ServletUtility.setPageNo(pageNo, request);
-			ServletUtility.setPageSize(pageSize, request);
-			ServletUtility.setBean(bean, request);
-			request.setAttribute("nextListSize", next.size());
+			ServletUtility.setList(list, req);
+			ServletUtility.setPageNo(pageNo, req);
+			ServletUtility.setPageSize(pageSize, req);
+			ServletUtility.setBean(bean, req);
+			req.setAttribute("nextListSize", next.size());
 
-			ServletUtility.forward(getView(), request, response);
-
+			
 		} catch (ApplicationException e) {
+			// TODO: handle exception
 			e.printStackTrace();
-			ServletUtility.handleException(e, request, response);
+			ServletUtility.handleException(e, req, resp);
 			return;
 		}
+		// TODO Auto-generated method stub
+		ServletUtility.forward(getView(), req, resp);
+		
+
 	}
 
 	@Override

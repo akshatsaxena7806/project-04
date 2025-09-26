@@ -209,8 +209,9 @@
                 }
             %>
         </form>
-        		<%@ include file="Footer.jsp" %>
+        		
         	
     </div>
+    <%@ include file="Footer.jsp" %>
 </body>
 </html>

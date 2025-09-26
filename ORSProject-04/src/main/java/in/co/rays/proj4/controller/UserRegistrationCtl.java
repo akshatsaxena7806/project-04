@@ -1,4 +1,4 @@
-package in.co.rays.proj4.controller;
+	package in.co.rays.proj4.controller;
 
 import java.io.IOException;
 
@@ -130,7 +130,7 @@ public class UserRegistrationCtl extends BaseCtl {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		System.out.println("hello");
+		
 		
 		String op = DataUtility.getString(request.getParameter("operation"));
 
@@ -139,7 +139,8 @@ public class UserRegistrationCtl extends BaseCtl {
 		if (OP_SIGN_UP.equalsIgnoreCase(op)) {
 			UserBean bean = (UserBean) populateBean(request);
 			try {
-				long pk = model.add(bean);
+				long pk = model.registerUser(bean);
+				
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setSuccessMessage("Registration successful!", request);
 			} catch (DuplicateRecordException e) {

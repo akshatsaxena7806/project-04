@@ -145,41 +145,89 @@ public class UserCtl extends BaseCtl {
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		ServletUtility.forward(getView(), request, response);
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		long id = DataUtility.getLong(req.getParameter("id"));
+		UserModel model = new UserModel();
+
+		if (id > 0) {
+			try {
+				UserBean bean = model.findByPk(id);
+				ServletUtility.setBean(bean, req);
+
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				ServletUtility.handleException(e, req, resp);
+				return;
+				// TODO: handle exception
+			}
+		}
+		// TODO Auto-generated method stub
+		ServletUtility.forward(getView(), req, resp);
 	}
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
 
-		String op = DataUtility.getString(request.getParameter("operation"));
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		String op = DataUtility.getString(req.getParameter("operation"));
 
 		UserModel model = new UserModel();
 
+		long id = DataUtility.getLong(req.getParameter("id"));
+
+		
+
 		if (OP_SAVE.equalsIgnoreCase(op)) {
-			UserBean bean = (UserBean) populateBean(request);
+			
+			UserBean bean = (UserBean) populateBean(req);
+
 			try {
-				long pk = model.registerUser(bean);
-				ServletUtility.setBean(bean, request);
-				ServletUtility.setSuccessMessage("User added successfully", request);
-			
+				model.add(bean);
+				ServletUtility.setBean(bean, req);
+				ServletUtility.setSuccessMessage("User added Successfully...!", req);
 			} catch (DuplicateRecordException e) {
-				ServletUtility.setBean(bean, request);
-				ServletUtility.setErrorMessage("Login Id already exists", request);
-			
+				ServletUtility.setBean(bean, req);
+				ServletUtility.setErrorMessage("User already exists", req);
+
 			} catch (ApplicationException e) {
 				e.printStackTrace();
-				ServletUtility.handleException(e, request, response);
+				ServletUtility.handleException(e, req, resp);
 				return;
 			}
+
+			
+
 		} else if (OP_RESET.equalsIgnoreCase(op)) {
-			ServletUtility.redirect(ORSView.USER_CTL, request, response);
+			ServletUtility.redirect(ORSView.USER_CTL, req, resp);
 			return;
+		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
+			UserBean bean = (UserBean) populateBean(req);
+			try {	
+				if(id>0) {
+					model.update(bean);
+				}
+				ServletUtility.setBean(bean, req);
+				ServletUtility.setSuccessMessage("User Updated successfully", req);
+			} catch (DuplicateRecordException e) {
+				// TODO Auto-generated catch block
+				ServletUtility.setBean(bean, req);
+				ServletUtility.setErrorMessage("User already exists", req);
+
+			} catch (ApplicationException e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				ServletUtility.handleException(e, req, resp);
+			}
+
+		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
+			ServletUtility.redirect(ORSView.USER_LIST_CTL, req, resp);
+			return;
+
 		}
-		ServletUtility.forward(getView(), request, response);
+		// TODO Auto-generated method stub
+		ServletUtility.forward(getView(), req, resp);
 	}
+
 
 	@Override
 	protected String getView() {
