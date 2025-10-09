@@ -49,6 +49,10 @@
             <table style="width: 100%">
                 <tr>
                     <td align="center">
+                       <%-- 
+                        <label><b>dob :</label>
+                        <input type = "text" id="udate"  name = "dob" placeholder="set date of birth" value="<%=ServletUtility.getParameter("dob", request) %>" >&emsp;
+                     --%>
                         <label><b>First Name :</b></label>
                         <input type="text" name="firstName" placeholder="Enter First Name" value="<%=ServletUtility.getParameter("firstName", request)%>">&emsp;
 

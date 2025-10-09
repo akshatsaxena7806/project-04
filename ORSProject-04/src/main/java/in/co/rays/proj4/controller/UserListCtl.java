@@ -27,6 +27,7 @@ public class UserListCtl extends BaseCtl {
 		try {
 			List<RoleBean> roleList = model.list();
 			request.setAttribute("roleList", roleList);
+
 		} catch (ApplicationException e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -41,6 +42,7 @@ public class UserListCtl extends BaseCtl {
 		bean.setFirstName(DataUtility.getString(request.getParameter("firstName")));
 		bean.setLogin(DataUtility.getString(request.getParameter("login")));
 		bean.setRoleId(DataUtility.getLong(request.getParameter("roleId")));
+		bean.setDob(DataUtility.getDate(request.getParameter("dob")));
 
 		return bean;
 
@@ -68,8 +70,6 @@ public class UserListCtl extends BaseCtl {
 			ServletUtility.setBean(bean, req);
 			req.setAttribute("nextListSize", next.size());
 
-			
-
 		} catch (ApplicationException e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -82,17 +82,17 @@ public class UserListCtl extends BaseCtl {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+
 		System.out.println("hey");
 
 		List list = null;
 		List next = null;
-		
-		String op    = DataUtility.getString(req.getParameter("operation"));
-		int pageNo   = DataUtility.getInt(req.getParameter("pageNo"));
+
+		String op = DataUtility.getString(req.getParameter("operation"));
+		int pageNo = DataUtility.getInt(req.getParameter("pageNo"));
 		int pageSize = DataUtility.getInt(req.getParameter("pageSize"));
 		String[] ids = req.getParameterValues("ids");
-		
+
 		pageNo = (pageNo == 0) ? 1 : pageNo;
 		pageSize = (pageSize == 0) ? DataUtility.getInt(PropertyReader.getValue("page.size")) : pageSize;
 
@@ -146,7 +146,6 @@ public class UserListCtl extends BaseCtl {
 			ServletUtility.setBean(bean, req);
 			req.setAttribute("nextListSize", next.size());
 
-			
 		} catch (ApplicationException e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -155,7 +154,6 @@ public class UserListCtl extends BaseCtl {
 		}
 		// TODO Auto-generated method stub
 		ServletUtility.forward(getView(), req, resp);
-		
 
 	}
 

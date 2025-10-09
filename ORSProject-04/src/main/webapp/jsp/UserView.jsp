@@ -96,7 +96,7 @@
 				<tr>
 					<th align="left">Date of Birth<span style="width: 98%"
 						style="color: red">*</span></th>
-					<td><input type="date" name="dob"
+					<td><input type="text" id = "udate" name="dob"
 						placeholder="Select Date of Birth"
 						value="<%=DataUtility.getDateString(bean.getDob())%>"></td>
 					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("dob", request)%></font></td>
@@ -108,6 +108,7 @@
 							HashMap<String, String> map = new HashMap<String, String>();
 							map.put("Male", "Male");
 							map.put("Female", "Female");
+							map.put("prefer not to say", "prefer not to say");
 
 							String htmlList = HTMLUtility.getList("gender", bean.getGender(), map);
 						%> <%=htmlList%>
