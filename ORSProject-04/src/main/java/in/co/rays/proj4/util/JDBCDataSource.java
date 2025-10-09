@@ -26,7 +26,6 @@ public final class JDBCDataSource {
 			if (jdbcUrl == null) {
 			    jdbcUrl = rb.getString("url");
 			}
-			System.out.println( "current db "+jdbcUrl);
 			cpds.setJdbcUrl(jdbcUrl);
 			cpds.setUser(rb.getString("username"));
 			cpds.setPassword(rb.getString("password"));
