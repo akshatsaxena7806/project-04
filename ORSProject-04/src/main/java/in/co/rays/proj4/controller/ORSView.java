@@ -71,13 +71,13 @@ public interface ORSView {
 
 	public String FACULTY_VIEW = PAGE_FOLDER + "/FacultyView.jsp";
 	public String FACULTY_CTL = APP_CONTEXT + "/ctl/FacultyCtl";
-	
+
 	public String COURSE_LIST_VIEW = PAGE_FOLDER + "/CourseListView.jsp";
 	public String COURSE_LIST_CTL = APP_CONTEXT + "/ctl/CourseListCtl";
-	
+
 	public String SUBJECT_LIST_VIEW = PAGE_FOLDER + "/SubjectListView.jsp";
 	public String SUBJECT_LIST_CTL = APP_CONTEXT + "/ctl/SubjectListCtl";
-	
+
 	public String TIMETABLE_VIEW = PAGE_FOLDER + "/TimetableView.jsp";
 	public String TIMETABLE_CTL = APP_CONTEXT + "/ctl/TimetableCtl";
 
@@ -86,5 +86,14 @@ public interface ORSView {
 
 	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
 	public String ERROR_CTL = APP_CONTEXT + "/ErrorCtl";
+	
+	
+	public String PATIENT_VIEW = PAGE_FOLDER + "/PatientView.jsp";
+	public String PATIENT_CTL = APP_CONTEXT + "/ctl/PatientCtl";
+
+	public String PATIENT_LIST_VIEW = PAGE_FOLDER + "/PatientListView.jsp";
+	public String PATIENT_LIST_CTL = APP_CONTEXT + "/ctl/PatientListCtl";
+	
+	 public String JAVA_DOC = APP_CONTEXT + "/doc/index.html";
 
 }
