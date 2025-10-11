@@ -45,12 +45,10 @@ public class UserModel {
 
 	}
 
-	
 	/**
-	 * this usermodel add method 
 	 * @param bean
 	 * @return
-	 * @throws ApplicationException use to raise exeption
+	 * @throws ApplicationException
 	 * @throws DuplicateRecordException
 	 */
 	public long add(UserBean bean) throws ApplicationException, DuplicateRecordException {
@@ -106,6 +104,11 @@ public class UserModel {
 
 	}
 
+	/**
+	 * @param bean
+	 * @throws ApplicationException
+	 * @throws DuplicateRecordException
+	 */
 	public void update(UserBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
 
@@ -142,7 +145,6 @@ public class UserModel {
 
 			conn.commit();
 			pstmt.close();
-			
 
 		} catch (Exception e) {
 			try {
@@ -158,7 +160,6 @@ public class UserModel {
 	}
 
 	/**
-	 * usermodel delete method
 	 * @param id
 	 * @throws ApplicationException
 	 */
@@ -192,7 +193,6 @@ public class UserModel {
 	}
 
 	/**
-	 * usermodel findbypk methods
 	 * @param id
 	 * @return
 	 * @throws ApplicationException
@@ -243,8 +243,7 @@ public class UserModel {
 		return bean;
 	}
 
-	/** 
-	 * usermodel findbylogin megthod 
+	/**
 	 * @param login
 	 * @return
 	 * @throws ApplicationException
@@ -294,7 +293,6 @@ public class UserModel {
 	}
 
 	/**
-	 * user model authentication method
 	 * @param login
 	 * @param password
 	 * @return
@@ -344,7 +342,7 @@ public class UserModel {
 	}
 
 	/**
-	 * this is usermodel search method 
+	 * this is usermodel search method
 	 */
 	public List<UserBean> search(UserBean bean, int pageNo, int pageSize) throws ApplicationException {
 
@@ -374,7 +372,7 @@ public class UserModel {
 				sql.append(" and password like '" + bean.getPassword() + "%'");
 			}
 
-			if (bean.getDob() != null && bean.getDob().getTime()>0) {
+			if (bean.getDob() != null && bean.getDob().getTime() > 0) {
 				sql.append(" and dob like '" + new java.sql.Date(bean.getDob().getTime()) + "%'");
 			}
 
@@ -396,8 +394,6 @@ public class UserModel {
 			pageNo = (pageNo - 1) * pageSize;
 			sql.append(" limit " + pageNo + "," + pageSize);
 		}
-
-		
 
 		List<UserBean> list = new ArrayList<UserBean>();
 
@@ -439,9 +435,8 @@ public class UserModel {
 		return list;
 
 	}
-	
+
 	/**
-	 * vhange password method
 	 * @param id
 	 * @param oldPassword
 	 * @param newPassword
@@ -487,9 +482,7 @@ public class UserModel {
 		return flag;
 	}
 
-	
 	/**
-	 * user medel forgetPassword metod
 	 * @param login
 	 * @return
 	 * @throws RecordNotFoundException
@@ -527,9 +520,7 @@ public class UserModel {
 		return flag;
 	}
 
-	
 	/**
-	 * user model registerUser method
 	 * @param bean
 	 * @return
 	 * @throws DuplicateRecordException

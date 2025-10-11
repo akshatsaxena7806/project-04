@@ -137,13 +137,13 @@ public class PatientCtl extends BaseCtl {
     }
 
     /**
-     * Handles HTTP GET request. Fetches Patient data for editing if id is provided.
-     * 
-     * @param req  HttpServletRequest
-     * @param resp HttpServletResponse
-     * @throws ServletException
-     * @throws IOException
-     */
+	 * Handles HTTP GET request. Fetches Patient data for editing if id is provided.
+	 * 
+	 * @param req  HttpServletRequest
+	 * @param resp HttpServletResponse
+	 *  ServletException
+	 *  IOException
+	 */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	
@@ -172,8 +172,8 @@ public class PatientCtl extends BaseCtl {
      * 
      * @param req  HttpServletRequest
      * @param resp HttpServletResponse
-     * @throws ServletException
-     * @throws IOException
+     *  ServletException
+     *  IOException
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
