@@ -1,12 +1,1 @@
-ORSProject-04/mysql-data/
-ORSProject-04/ORSProject-04/
-ORSProject-04/docker-compose.yml
-ORSProject-04/src/main/resources/log4j.properties
-ORSProject-04/src/main/webapp/doc/
-ORSProject-04/src/main/webapp/img/customLogo.jpg
-ORSProject-04/src/main/webapp/js/
-ORSProject-04/target/ORSProject-04.war
-ORSProject-04/target/ORSProject-04/
-ORSProject-04/target/classes/log4j.properties
-ORSProject-04/target/maven-archiver/
-ORSProject-04/target/maven-status/
+ORSProject-04/mysql-data/mysql.sock
