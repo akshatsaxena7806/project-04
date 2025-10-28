@@ -95,5 +95,5 @@ public interface ORSView {
 	public String PATIENT_LIST_CTL = APP_CONTEXT + "/ctl/PatientListCtl";
 	
 	 public String JAVA_DOC = APP_CONTEXT + "/doc/index.html";
-
+	
 }

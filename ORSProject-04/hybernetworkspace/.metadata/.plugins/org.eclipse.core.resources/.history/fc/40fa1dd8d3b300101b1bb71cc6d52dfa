@@ -1,0 +1,5 @@
+package com.rays.user;
+
+public class UserDTO {
+
+}

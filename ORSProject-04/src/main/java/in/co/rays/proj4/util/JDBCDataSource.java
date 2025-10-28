@@ -18,13 +18,13 @@ public final class JDBCDataSource {
 	private static ResourceBundle rb = ResourceBundle.getBundle("in.co.rays.proj4.bundle.system");
 
 	private JDBCDataSource() {
-		
+
 		try {
 			cpds = new ComboPooledDataSource();
 			cpds.setDriverClass(rb.getString("driver"));
 			String jdbcUrl = System.getenv("DATABASE_URL");
 			if (jdbcUrl == null) {
-			    jdbcUrl = rb.getString("url");
+				jdbcUrl = rb.getString("url");
 			}
 			cpds.setJdbcUrl(jdbcUrl);
 			cpds.setUser(rb.getString("username"));
