@@ -123,7 +123,7 @@ public class PatientModel {
             conn.setAutoCommit(false);
 
             PreparedStatement pstmt = conn.prepareStatement(
-                    "UPDATE st_patient SET name=?, date_of_visit=?, mobile=?, decease=?, "
+                    "UPDATE st_patient SET name=?, dateofvisit=?, mobile=?, decease=?, "
                             + "created_by=?, modified_by=?, created_datetime=?, modified_datetime=? WHERE id=?");
             pstmt.setString(1, bean.getName());
             pstmt.setDate(2, new java.sql.Date(bean.getDateOfVisit().getTime()));
@@ -144,7 +144,7 @@ public class PatientModel {
             } catch (Exception ex) {
                 throw new ApplicationException("Update rollback exception: " + ex.getMessage());
             }
-            throw new ApplicationException("Exception in updating Patient");
+        //    throw new ApplicationException("Exception in updating Patient");
         } finally {
             JDBCDataSource.closeConnection(conn);
         }

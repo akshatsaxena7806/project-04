@@ -1,0 +1,22 @@
+package com.rays.crud;
+
+import com.rays.user.UserDTO;
+
+public class TestSave {
+	
+	public static void main(String[] args) {
+		
+		
+		UserDTO dto = new UserDTO();
+		
+		dto.setId(1);
+		dto.setFirstName("akshat");
+		dto.setLastName("saxena");
+		dto.setLoginId("akshatsaxena@gmail.com");
+		dto.setAddress("indore");
+		
+		
+		
+	}
+
+}

@@ -1,0 +1,9 @@
+package com.rays.crud;
+
+public class TestSave {
+	
+	public static void main(String[] args) {
+		
+	}
+
+}

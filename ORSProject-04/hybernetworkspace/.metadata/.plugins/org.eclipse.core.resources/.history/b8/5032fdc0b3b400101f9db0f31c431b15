@@ -1,0 +1,17 @@
+package com.rays.crud;
+
+import com.rays.user.UserDTO;
+
+public class TestSave {
+	
+	public static void main(String[] args) {
+		
+		
+		UserDTO dto = new UserDTO();
+		
+		
+		
+		
+	}
+
+}
